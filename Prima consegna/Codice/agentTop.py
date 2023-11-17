@@ -99,8 +99,12 @@ class Plot_env(object):
         """
         xs, ys = zip(*self.body.history)
         plt.plot(xs, ys, "go")
-        wxs, wys = zip(*self.body.wall_history)
-        plt.plot(wxs, wys, "ro")
+
+        print("***** wall history: ", self.body.wall_history)
+        # print(type(self.body.wall_history))
+        if len(self.body.wall_history) != 0:        # if the robot crashed
+            wxs, wys = zip(*self.body.wall_history)
+            plt.plot(wxs, wys, "ro")
         plt.draw()
 
 

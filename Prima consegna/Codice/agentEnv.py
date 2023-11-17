@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 import time
 
 class Rob_body(Environment):
-    def __init__(self, env, init_pos=(0,0,90)):
+    def __init__(self, env, init_pos=(0, 0, 90)):
         """ env is the current environment
         init_pos is a triple of (x-position, y-position, direction) 
             direction is in degrees; 0 is to right, 90 is straight-up, etc
