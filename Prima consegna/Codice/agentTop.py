@@ -29,13 +29,8 @@ class Rob_top_layer(Environment):
         actions is of the form {'visit':list_of_locations}
         It visits the locations in turn.
         """
-        # to_do = plan['visit']
-        # for loc in to_do:
-        #     position = self.locations[loc]
-        #     arrived = self.middle.do({'go_to':position, 'timeout':self.timeout})
-        #     self.display(1, "Arrived at", loc, arrived)
 
-        # create an opportunistic planner
+        # Opportunistic planner
         to_do = plan['visit']
         if to_do.__len__() == 0:
             return
@@ -69,6 +64,8 @@ class Rob_top_layer(Environment):
         return location
 
     def distance(self, target):
+        """ return the distance to target
+        """
         target_x, target_y = target
         agent_x, agent_y = self.middle.percepts['rob_x_pos'], self.middle.percepts['rob_y_pos']
         return (target_x-agent_x)**2 + (target_y-agent_y)**2
@@ -117,19 +114,7 @@ top.do({'visit':['o109', 'storage', 'o103']})
 pl.plot_run()
 # You can directly control the middle layer:
 middle.do({'go_to':(30,-10), 'timeout':200})
-# Can you make it crash?
 
-# Robot Trap for which the current controller cannot escape:
-# trap_env = Rob_env({((10,-21),(10,0)), ((10,10),(10,31)), ((30,-10),(30,0)),
-#                     ((30,10),(30,20)),  ((50,-21),(50,31)), ((10,-21),(50,-21)),
-#                     ((10,0),(30,0)),  ((10,10),(30,10)),  ((10,31),(50,31))})
-# trap_body = Rob_body(trap_env, init_pos=(-1,0,90))
-# trap_middle = Rob_middle_layer(trap_body)
-# trap_top = Rob_top_layer(trap_middle, locations={'goal':(71,0)})
-
-# Robot trap exercise:
-# pl=Plot_env(trap_body,trap_top)
-# trap_top.do({'visit':['goal']})
 
 # do the following to see the history of the robot:
 # pl.plot_run()   #for the robot trap
