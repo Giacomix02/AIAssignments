@@ -104,11 +104,11 @@ def line_segments_intersect(linea,lineb):
     cb = (da*(y0b-y0a)-ea*(x0b-x0a))/denom  # position along line b
     if cb<0 or cb>1:
         return False
-    ca = (db*(y0b-y0a)-eb*(x0b-x0a))/denom # position along line a
+    ca = (db*(y0b-y0a)-eb*(x0b-x0a))/denom  # position along line a
     return 0<=ca<=1
 
 # Test cases:
-#assert line_segments_intersect(((0,0),(1,1)),((1,0),(0,1)))
-#assert not line_segments_intersect(((0,0),(1,1)),((1,0),(0.6,0.4)))
-#assert line_segments_intersect(((0,0),(1,1)),((1,0),(0.4,0.6)))
+# assert line_segments_intersect(((0,0),(1,1)),((1,0),(0,1)))
+# assert not line_segments_intersect(((0,0),(1,1)),((1,0),(0.6,0.4)))
+# assert line_segments_intersect(((0,0),(1,1)),((1,0),(0.4,0.6)))
 

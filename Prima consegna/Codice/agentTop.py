@@ -106,7 +106,7 @@ class Plot_env(object):
 
 from agentEnv import Rob_body, Rob_env
 
-OBSTACLES = 4
+OBSTACLES = 3
 
 
 def make_obstacles(n):
@@ -114,13 +114,21 @@ def make_obstacles(n):
     """
     obstacles = set()
     for i in range(n):
-        x = random.randint(0, 100)
-        y = random.randint(0, 100)
-        obstacles.add((x, y))
+        x = random.randint(1, 90)
+        y = random.randint(1, 45)
+        x1 = random.randint(1, 90)
+        y1 = random.randint(1, 45)
+        obstacle = ((x, y), (x1, y1))
+        obstacles.add(obstacle)
+    print(obstacles)
     return obstacles
 
 
-# env = Rob_env({((20,0),(30,20)), ((70,-5),(70,25))})
+#env = Rob_env(
+#   {
+#       ((20,0),(30,20)), ((70,-5),(70,25))
+#       }
+# )
 env = Rob_env(make_obstacles(OBSTACLES))
 body = Rob_body(env)
 middle = Rob_middle_layer(body)
@@ -128,11 +136,10 @@ top = Rob_top_layer(middle)
 
 # try:
 pl = Plot_env(body, top)
-top.do({'visit': ['o109', 'storage', 'o103']})
+top.do({'visit': ['o109', 'storage', 'o103','mail']})
 pl.plot_run()
 # You can directly control the middle layer:
-middle.do({'go_to': (30, -10), 'timeout': 200})
+#middle.do({'go_to': (30, -10), 'timeout': 200})
 
 # do the following to see the history of the robot:
-# pl.plot_run()   #for the robot trap
 plt.show()
