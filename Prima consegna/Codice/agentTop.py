@@ -2,6 +2,9 @@
 # AIFCA Python3 code Version 0.9.3 Documentation at http://aipython.org
 # Download the zip file and read aipython.pdf for documentation
 import random
+import time
+
+import matplotlib
 
 from agentMiddle import Rob_middle_layer
 from agents import Environment
@@ -146,3 +149,4 @@ pl.plot_run()
 
 # do the following to see the history of the robot:
 plt.show()
+plt.pause(10000)

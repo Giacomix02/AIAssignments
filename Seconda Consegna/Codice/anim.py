@@ -20,7 +20,7 @@ ani = animation.FuncAnimation(
 
 # To save the animation, use e.g.
 #
-ani.save("movie")
+# ani.save("movie")
 #
 # or
 
