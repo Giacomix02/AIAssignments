@@ -89,6 +89,7 @@ def animate(p):
             else:
                 rettangoli[k][j].set_edgecolor("black")
 
+
 ani = animation.FuncAnimation(
     fig, animate,
     frames=1,
@@ -112,4 +113,3 @@ ax.annotate("g", (cx, cy), color='black', weight='bold', fontsize=16, ha='center
 printGraph()
 
 plt.show()
-
