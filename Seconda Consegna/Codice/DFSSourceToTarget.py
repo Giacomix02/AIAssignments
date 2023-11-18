@@ -2,11 +2,10 @@
 import matplotlib.animation as animation
 from matplotlib.patches import Rectangle
 import matplotlib.pyplot as plt
-from graphPlot import printGraph
-#from dfs import dfs
+from graphPlot import Graph
+import dfs
 
-
-fig = plt.figure()
+fig = plt.figure("DFS")
 ax = fig.add_subplot(111)
 plt.title("DFS")
 plt.xlim([0, 9])
@@ -14,7 +13,17 @@ plt.ylim([0, 9])
 plt.xlabel("x - axis")
 plt.ylabel("y - axis")
 
+
+
+# def scrivi(x,y,n):
+#     rectGoal = rettangoli[x][y]
+#     xy = rectGoal.get_xy()
+#     cx = xy[0] + rectGoal.get_width() / 2
+#     cy = xy[1] + rectGoal.get_height() / 2
+#     ax.annotate(n, (cx, cy), color='black', weight='bold', fontsize=16, ha='center', va='center')
+
 class Square(Rectangle):
+    _numero: int
     _visitato: bool
     _ostacolo: bool
     _tipo: int          # 1 = inizio, 2 = fine, 0 = qualsiasi nodo
@@ -48,6 +57,12 @@ class Square(Rectangle):
     def coordinate(self):
         return (self._x, self._y)
 
+    def set_numero(self, numero):
+        self._numero = numero
+
+    def get_numero(self):
+        return self._numero
+
 
 def ostacolo(i,j):
     if(j==5 and (3<=i<=7)):
@@ -68,10 +83,11 @@ def tipo( i, j):
 
 
 rettangoli = []
-for i in range(1, 9):
+
+for i in range(0, 8):
     row = []
-    for j in range(1, 9):
-        row.append(Square(ostacolo(i+1, j+1), i, j, tipo(i+1, j+1)))
+    for j in range(0, 8):
+        row.append(Square(ostacolo(i + 1, j + 1), i + 1, j + 1, tipo(i + 1, j + 1)))
     rettangoli.append(row)
 
 for i in range(len(rettangoli)):
@@ -110,6 +126,8 @@ cy = xy[1] + rect.get_height() / 2
 ax.annotate("g", (cx, cy), color='black', weight='bold', fontsize=16, ha='center', va='center')
 
 
-printGraph()
+Graph()
+
+dfs.dfs(rettangoli, rectStart, rectGoal)  # esegue la dfs sulla griglia
 
 plt.show()
