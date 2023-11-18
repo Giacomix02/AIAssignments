@@ -101,7 +101,6 @@ class Plot_env(object):
         plt.plot(xs, ys, "go")
 
         print("***** wall history: ", self.body.wall_history)
-        # print(type(self.body.wall_history))
         if len(self.body.wall_history) != 0:        # if the robot crashed
             wxs, wys = zip(*self.body.wall_history)
             plt.plot(wxs, wys, "ro")
@@ -110,7 +109,7 @@ class Plot_env(object):
 
 from agentEnv import Rob_body, Rob_env
 
-OBSTACLES = 3
+OBSTACLES = 2
 
 
 def make_obstacles(n):
@@ -128,7 +127,7 @@ def make_obstacles(n):
     return obstacles
 
 
-#env = Rob_env(
+# env = Rob_env(
 #   {
 #       ((20,0),(30,20)), ((70,-5),(70,25))
 #       }
