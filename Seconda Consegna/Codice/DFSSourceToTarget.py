@@ -24,6 +24,7 @@ plt.ylabel("y - axis")
 
 class Square(Rectangle):
     _numero: int
+    _individuato: bool
     _visitato: bool
     _ostacolo: bool
     _tipo: int  # 1 = inizio, 2 = fine, 0 = qualsiasi nodo
@@ -31,6 +32,7 @@ class Square(Rectangle):
     _y: int
 
     def __init__(self, ostacolo, x, y, tipo: int):
+        self._individuato = False
         self._visitato = False
         self._ostacolo = ostacolo
         self._x = x
@@ -48,13 +50,13 @@ class Square(Rectangle):
             else:
                 super().__init__((x, y), 1, 1, color='black', fc='none', lw=2)
 
-    def get_visitato(self):
+    def is_visitato(self):
         return self._visitato
 
     def set_visitato(self, visitato):
         self._visitato = visitato
 
-    def get_ostacolo(self):
+    def is_ostacolo(self):
         return self._ostacolo
 
     def coordinate(self):
@@ -65,6 +67,14 @@ class Square(Rectangle):
 
     def get_numero(self):
         return self._numero
+    
+    def is_individuato(self):
+        return self._individuato
+    
+    def set_individuato(self, individuato):
+        self._individuato = individuato
+    def is_tipo(self):
+        return self._tipo
 
 
 def ostacolo(i, j):
@@ -115,10 +125,13 @@ def animate(p):
     global rettangoli
     for k in range(rettangoli.__len__()):
         for j in range(rettangoli[k].__len__()):
-            if rettangoli[k][j]._visitato or rettangoli[k][j]._tipo == 1:
+            if rettangoli[k][j].is_visitato() or rettangoli[k][j]._tipo == 1:
                 rettangoli[k][j].set_color('red')
-            elif rettangoli[k][j]._ostacolo:
+            elif rettangoli[k][j].is_ostacolo():
                 rettangoli[k][j].set_color('black')
+            elif rettangoli[k][j].is_individuato():
+                rettangoli[k][j].set_color('gray')
+
             else:
                 rettangoli[k][j].set_edgecolor("black")
 
@@ -130,11 +143,12 @@ ani = animation.FuncAnimation(
     interval=100
 )
 
-rectStart = rettangoli[3][2]
+rectStart:Square = rettangoli[3][2]
 xy = rectStart.get_xy()
 cx = xy[0] + rectStart.get_width() / 2
 cy = xy[1] + rectStart.get_height() / 2
 ax.annotate("s", (cx, cy), color='black', weight='bold', fontsize=16, ha='center', va='center')
+
 
 rectGoal = rettangoli[2][5]
 xy = rectGoal.get_xy()
@@ -143,8 +157,9 @@ cy = xy[1] + rectGoal.get_height() / 2
 ax.annotate("g", (cx, cy), color='black', weight='bold', fontsize=16, ha='center', va='center')
 
 
-Graph()
+graph = Graph()
+plt.pause(2)
 
-dfs.dfs(rettangoli, rectStart, rectGoal)  # esegue la dfs sulla griglia
+dfs.dfs(rettangoli, rectStart, rectGoal, graph)  # esegue la dfs sulla griglia
 
 plt.show()

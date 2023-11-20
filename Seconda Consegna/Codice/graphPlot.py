@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 class Graph:
     _pos: dict
     _g: nx.Graph
-    _numero = []
+    _visitati = []
+    _individuati = []
+
 
     def __init__(self):
         plt.figure("Graph")
@@ -75,5 +77,11 @@ class Graph:
     #     nx.draw_networkx_nodes(g, pos=pos, nodelist=[43], node_color='red', node_size=300)
 
     def colora(self, rettangolo):
-        self._numero.append(rettangolo.get_numero())
-        nx.draw_networkx_nodes(self._g, pos=self._pos, nodelist=self._numero, node_color='green', node_size=300)
+        if rettangolo.is_visitato():
+            self._visitati.insert(rettangolo.get_numero(), rettangolo.get_numero())
+                    
+        elif rettangolo.is_individuato():
+            self._individuati.insert(rettangolo.get_numero(), rettangolo.get_numero())
+        
+        nx.draw_networkx_nodes(self._g, pos=self._pos, nodelist=self._individuati, node_color='grey', node_size=300)
+        nx.draw_networkx_nodes(self._g, pos=self._pos, nodelist=self._visitati, node_color='green', node_size=300)
