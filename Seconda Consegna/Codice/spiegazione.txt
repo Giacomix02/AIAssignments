@@ -1,0 +1,12 @@
+- abbiamo scelto di sviluppare il primo quesito
+- per farlo abbiamo creato il file dfs.py dove viene implementato il metodo dfs per la ricerca del percorso
+- per rendere più chiara la visualizzazione del percorso abbiamo fatto 2 visualizzazioni:
+1. vista originale della griglia
+2. vista del grafo
+in entrambe viene animato il processo di ricerca del percorso da sorgente a destinazione,
+e la funzione dfs aggiorna entrambe ad ogni passo di esplorazione di un nuovo nodo
+- per la stampa del grafo abbiamo utilizzato il metodo print_graph presente nel file graph.y, servendoci
+della libreria networkx
+- nel file DFSSourceToTarget.py abbiamo implementato la classe Square che rappresenta ogni rettangolo, e quindi anche
+ogni nodo della griglia
+- per animare il grafo abbiamo utilizzato la funzione FuncAnimation
