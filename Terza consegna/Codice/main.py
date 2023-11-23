@@ -2,7 +2,7 @@ from constraintGraph import Variable, Constraint, renderGraph
 from dfs import runDfs
 
 domain = [1,2,3,4]
-variables = [Variable("A", domain), Variable("B", domain), Variable("C", domain), Variable("D", domain), Variable("E", domain)]
+variables = [Variable("A", domain, position=(0.35, 0.03)), Variable("B", domain, position=(0.02,0.3)), Variable("C", domain, position=(0.5, 0.93)), Variable("D", domain, position=(0.65,0.09)), Variable("E", domain, position=(1, 0.1))]
 constraint = []
 constraint.append(Constraint([variables[0], variables[3]], lambda x, y: x > y, "A>D"))
 constraint.append(Constraint([variables[3], variables[4]], lambda x, y: x > y, "D>E"))

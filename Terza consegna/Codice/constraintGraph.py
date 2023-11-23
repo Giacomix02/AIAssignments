@@ -1,6 +1,7 @@
 # from enum import Enum
 import random
 from matplotlib import pyplot as plt
+ax = plt.figure().gca()
 class Variable(object):
     """A random variable.
     name (string) - name of the variable
@@ -100,7 +101,6 @@ class CSP(object):
                    if con.can_evaluate(assignment))
     def show(self):
         plt.ion()  # interactive
-        ax = plt.figure().gca()
         ax.set_axis_off()
         plt.title(self.title)
         var_bbox = dict(boxstyle="round4,pad=1.0,rounding_size=0.5")
@@ -121,7 +121,20 @@ class CSP(object):
             x, y = var.position
             plt.text(x, y, var.name, bbox=var_bbox, ha='center')
 
+    
 
+def showConstraintFail(constraint):
+        con_bbox = dict(boxstyle="square,pad=1.0", color="green")
+        for var in constraint.scope:
+            ax.annotate(constraint.string, var.position, xytext=constraint.position, color = 'red', # type: ignore
+                            arrowprops={'arrowstyle': '-', "color":"r"}, bbox=con_bbox,
+                            ha='center')
+        plt.pause(1)
+        for var in constraint.scope:
+            ax.annotate(constraint.string, var.position, xytext=constraint.position, # type: ignore
+                            arrowprops={'arrowstyle': '-'}, bbox=con_bbox,
+                            ha='center')
+            
 def renderGraph(variables, constraint):
     csp = CSP("CSP", variables, constraint)
     csp.show()
@@ -129,3 +142,4 @@ def renderGraph(variables, constraint):
     plt.show()
     plt.pause(10)
     return csp
+

@@ -1,7 +1,10 @@
-from matplotlib import pyplot as plt
-
+from matplotlib import axes, pyplot as plt
+from constraintGraph import Constraint, showConstraintFail
+from matplotlib.pylab import show
+from numpy import empty
 tab = "\t"
 resultString = None
+con_bbox = dict(boxstyle="square,pad=1.0", color="green")
 
 def merge_two_dicts(x, y):
     z = x.copy()  # start with keys and values of x
@@ -13,23 +16,36 @@ def dfs_solver(constraints, context:dict, var_order):
     context is an assignment of values to some of the variables.
     var_order  is  a list of the variables in csp that are not in context.
     """
-    to_eval = {c for c in constraints if c.can_evaluate(context)}
-    result = all(c.holds(context) for c in to_eval)
-    if result and len(var_order) == 0:
-        resultString = "solution"
+    to_eval:set[Constraint] = {c for c in constraints if c.can_evaluate(context)}
+    # result = all(c.holds(context) for c in to_eval)
+    failedConstraint = None
+    for c in to_eval:
+        if not c.holds(context):
+            failedConstraint = c
+            break
+    
+    if failedConstraint is None:
+        result = True
+        resultString = "solution" if var_order == [] else "partial solution"
     else:
+        result = False
         resultString = "failure"
+    
+    print(tab * len(context), context, resultString)
     if result:
         if var_order == []:
-            print(tab * len(context), context, resultString)
             yield context
         else:
             rem_cons = [c for c in constraints if c not in to_eval]
             var = var_order[0]
-            print(tab * len(context), context, resultString)
             for val in var.domain:
                 yield from dfs_solver(rem_cons, merge_two_dicts(context, {var: val}), var_order[1:])
-
+    else:
+        showConstraintFail(failedConstraint)
+        contextList = list(context.keys())
+        blamedVar = contextList.pop()
+        print(tab * len(context), "Deleted value:", context.get(blamedVar), "from", blamedVar)
+        
 
 
 def dfs_solve_all(csp, var_order=None):
