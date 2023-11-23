@@ -28,19 +28,13 @@ if __name__=="__main__":
    csp = renderGraph(variables, constraint)      # render del constraint graph
    if (USE_DFS):
       runDfs(csp)
-   if (USE_AC_WITH_DOMAIN_SPLITTING):
+
+   if (USE_ARC_CONSISTENCY):
       solver = Con_solver(csp)
       print("\n\n********** ARC CONSISTENCY ( domanda 3 ) **********\n")
-      solver.make_arc_consistent()
 
-      nuoveVariabili = copy.deepcopy(variables)
-      variablesConsistent:set = csp.variables
-      n=0
-      for v in variablesConsistent.keys():
-         nuoveVariabili[n].domain = variablesConsistent.get(v)
-         n+=1
-      renderGraph(nuoveVariabili, constraint)
+      newDomains:dict = solver.make_arc_consistent()
 
-
+   if(USE_AC_WITH_DOMAIN_SPLITTING):
       print("\n\n**********  HOW SPLITTING A DOMAIN CAN BE USED TO SOLVE THIS PROBLEM ( domanda 4 ) **********\n")
       print(solver.solve_one())
