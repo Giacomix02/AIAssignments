@@ -56,3 +56,9 @@ fabric.properties
 /.idea
 
 .idea
+.vscode/settings.json
+Terza consegna/Codice/__pycache__/Constraint.cpython-311.pyc
+Terza consegna/Codice/__pycache__/Node.cpython-311.pyc
+Terza consegna/Codice/__pycache__/tree.cpython-311.pyc
+Terza consegna/Codice/__pycache__/Variable.cpython-311.pyc
+.gitignore

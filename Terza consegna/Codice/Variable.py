@@ -3,16 +3,14 @@ import random
 
 class Variable:
     name = None
-    domain = None
-    value = None
-    n = 0
+    domain = []
 
-    def __init__(self, name, domain):
+
+    def __init__(self, name, domain:list):
         self.name = name
         self.domain = domain
-        self.value = domain[self.n]
-        self.n = self.n + 1
-
+        self.value = None
+        self.n = 0
     def getName(self):
         return self.name
 
@@ -20,5 +18,12 @@ class Variable:
         return self.value
 
     def nextValue(self):
-        self.value = self.domain[self.n]
-        self.n = self.n + 1
+        if self.n == -1:
+            self.n = 3
+        if self.value == None:
+            self.value = self.domain[self.n]
+            self.n -= 1
+        else: 
+            self.value = self.domain[self.n]
+            self.n = self.n - 1
+    

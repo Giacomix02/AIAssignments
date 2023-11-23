@@ -36,21 +36,32 @@ from Variable import Variable
 
 
 def validate(variabile1:Variable, variabile2:Variable, segno):
+    if variabile1.getValue() == None or variabile2.getValue() == None: 
+           return -1
     if(variabile1.getName()=="A" and variabile2.getName()=="D" and segno == "ht"):
-            return variabile1.getValue()>variabile2.getValue()
+        if variabile1.getValue()>variabile2.getValue():
+                return 1
     if(variabile1.getName()=="D" and variabile2.getName()=="E" and segno == "ht"):
-            return variabile1.getValue()>variabile2.getValue()
+        if variabile1.getValue()>variabile2.getValue():
+                return 1
     if(variabile1.getName()=="C" and variabile2.getName()=="A" and segno == "ne"):
-            return variabile1.getValue()!=variabile2.getValue()
+        if variabile1.getValue()!=variabile2.getValue():
+                return 1
     if(variabile1.getName()=="C" and variabile2.getName()=="E" and segno == "ht"):
-            return variabile1.getValue()>variabile2.getValue()
+        if variabile1.getValue()>variabile2.getValue():
+                return 1
     if(variabile1.getName()=="C" and variabile2.getName()=="D" and segno == "ne"):
-            return variabile1.getValue()!=variabile2.getValue()
+        if variabile1.getValue()!=variabile2.getValue():
+                return 1
     if(variabile1.getName()=="B" and variabile2.getName()=="A" and segno == "he"):
-            return variabile1.getValue()>=variabile2.getValue()
+        if variabile1.getValue()>=variabile2.getValue():
+                return 1 
+            
     if(variabile1.getName()=="B" and variabile2.getName()=="C" and segno == "ne"):
-            return variabile1.getValue()!=variabile2.getValue()
+        if variabile1.getValue()!=variabile2.getValue():
+                return 1 
     if(variabile1.getName()=="C" and variabile2.getName()=="D" and segno == "ne1"):
-            return variabile1.getValue()!=variabile2.getValue()+1
-    return False
+        if variabile1.getValue()!=variabile2.getValue()+1:
+                return 1
+    return 0
 
