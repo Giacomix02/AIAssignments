@@ -138,7 +138,6 @@ def showConstraintFail(constraint):
 def renderGraph(variables, constraint):
     csp = CSP("CSP", variables, constraint)
     csp.show()
-    plt.draw()
     plt.show()
     plt.pause(10)
     return csp

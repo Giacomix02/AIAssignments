@@ -1,4 +1,5 @@
 # cspConsistency.py - Arc Consistency and Domain splitting for solving a CSP
+
 from display import Displayable
 
 class Con_solver(Displayable):
@@ -131,13 +132,9 @@ def select(iterable):
     for e in iterable:
         return e  # returns first element found
 
-from cspExamples import test_csp
 def ac_solver(csp):
     "arc consistency (solve_one)"
     return Con_solver(csp).solve_one()
-
-if __name__ == "__main__":
-    test_csp(ac_solver)
 
 from searchProblem import Arc, Search_problem
 
@@ -182,7 +179,4 @@ def ac_search_solver(csp):
     sol = Searcher(Search_with_AC_from_CSP(csp)).search()
     if sol:
         return {v:select(d) for (v,d) in sol.end().items()}
-    
-if __name__ == "__main__":
-    test_csp(ac_search_solver)
 

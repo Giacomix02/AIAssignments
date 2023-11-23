@@ -84,11 +84,3 @@ def test_csp(CSP_solver, csp):
     print("Testing csp with", CSP_solver.__doc__)
     sol = CSP_solver(csp)
     print("Solution found:", sol)
-    # assert sol0 in solutions, "Solution not correct for "+str(csp)
-    # print("Passed unit test")
-
-# Try:
-# dfs_solve_all(csp1)
-# dfs_solve_all(csp2)
-# dfs_solve_all(crossword1)
-# dfs_solve_all(crossword1d)  # warning: may take a *very* long time!
