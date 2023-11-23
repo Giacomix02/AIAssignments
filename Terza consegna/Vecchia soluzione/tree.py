@@ -8,4 +8,3 @@ def search(variabili:list[Variable]):
     root = Node(variabili, None, [])    # padre con dentro tutte le variabili
     stack.append(root)
 
-
