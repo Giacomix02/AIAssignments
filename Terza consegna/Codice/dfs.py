@@ -1,5 +1,8 @@
 from matplotlib import pyplot as plt
 
+tab = "\t"
+resultString = None
+
 def merge_two_dicts(x, y):
     z = x.copy()  # start with keys and values of x
     z.update(y)  # modifies z with keys and values of y
@@ -45,14 +48,14 @@ def runDfs(csp):
     # test_csp(dfs_solve1)
     test_csp(dfs_solve_all, csp)
     csp.show()
-    plt.show()
+    #plt.show()
 
 
 def test_csp(CSP_solver, csp):
     """CSP_solver is a solver that takes a csp and returns a solution
     csp is a constraint satisfaction problem
     solutions is the list of all solutions to csp
-    This tests whether the solution returned by CSP_solver is a solution.
+    This tests whether the solution returned by CSP_    solver is a solution.
     """
     print("Testing csp with", CSP_solver.__doc__)
     sol = CSP_solver(csp)
