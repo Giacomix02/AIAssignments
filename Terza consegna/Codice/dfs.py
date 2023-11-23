@@ -8,20 +8,28 @@ def merge_two_dicts(x, y):
     z.update(y)  # modifies z with keys and values of y
     return z
 
-def dfs_solver(constraints, context, var_order):
+def dfs_solver(constraints, context:dict, var_order):
     """generator for all solutions to csp.
     context is an assignment of values to some of the variables.
     var_order  is  a list of the variables in csp that are not in context.
     """
     to_eval = {c for c in constraints if c.can_evaluate(context)}
-    if all(c.holds(context) for c in to_eval):
+    result = all(c.holds(context) for c in to_eval)
+    if result and len(var_order) == 0:
+        resultString = "solution"
+    else:
+        resultString = "failure"
+    if result:
         if var_order == []:
+            print(tab * len(context), context, resultString)
             yield context
         else:
             rem_cons = [c for c in constraints if c not in to_eval]
             var = var_order[0]
+            print(tab * len(context), context, resultString)
             for val in var.domain:
                 yield from dfs_solver(rem_cons, merge_two_dicts(context, {var: val}), var_order[1:])
+
 
 
 def dfs_solve_all(csp, var_order=None):
