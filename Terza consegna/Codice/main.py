@@ -17,6 +17,10 @@ constraint.append(Constraint([variables[1], variables[0]], lambda x, y: x >= y, 
 constraint.append(Constraint([variables[1], variables[2]], lambda x, y: x != y, "B!=C"))
 constraint.append(Constraint([variables[2], variables[3]], lambda x, y: x != y + 1, "C!=D+1"))
 
+USE_DFS = False
+USE_ARC_CONSISTENCY = True
+USE_AC_WITH_DOMAIN_SPLITTING = True
+
 
 if __name__=="__main__":
    csp = renderGraph(variables, constraint)      # render del constraint graph
