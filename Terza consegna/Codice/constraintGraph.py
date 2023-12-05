@@ -2,6 +2,8 @@
 import random
 from matplotlib import pyplot as plt
 ax = plt.figure().gca()
+PAUSE = True
+PAUSE_LENGTH = 0.2
 class Variable(object):
     """A random variable.
     name (string) - name of the variable
@@ -129,7 +131,8 @@ def showConstraintFail(constraint):
             ax.annotate(constraint.string, var.position, xytext=constraint.position, color = 'red', # type: ignore
                             arrowprops={'arrowstyle': '-', "color":"r"}, bbox=con_bbox,
                             ha='center')
-        plt.pause(1)
+        if (PAUSE):
+            plt.pause(PAUSE_LENGTH)
         for var in constraint.scope:
             ax.annotate(constraint.string, var.position, xytext=constraint.position, # type: ignore
                             arrowprops={'arrowstyle': '-'}, bbox=con_bbox,
@@ -138,7 +141,6 @@ def showConstraintFail(constraint):
 def renderGraph(variables, constraint):
     csp = CSP("CSP", variables, constraint)
     csp.show()
-    plt.draw()
     plt.show()
     plt.pause(10)
     return csp

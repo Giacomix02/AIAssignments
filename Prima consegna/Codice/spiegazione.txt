@@ -1,0 +1,6 @@
+- abbiamo importato i files agentEnv.py agentMiddle.py agents.py display.py e modificato in particolare agentTop.py
+- per lo svolgimento del punto 2 abbiamo implementato un algoritmo greedy che trova la location con la distanza minima rispetto a tutte le altre,
+levandola dalla lista delle location da visitare appena arrivato, e iniziando di nuovo la ricerca fino all'esaurimento delle locations da visitare
+
+- per lo svolgimento del punto opzionale abbiamo importato la libreria random e generato randomicamente le coordinate degli ostacoli,
+lasciando il numero di ostacoli da decidere nella variabile OBSTACLES

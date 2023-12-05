@@ -1,0 +1,10 @@
+- per la visualizzazione del backtraking e dei nodi abbiamo modificato il file cspDFS.py, rinominandolo in dfs, in modo tale anche di stampare
+a video l'albero di ricerca.
+
+- per la visualizzazione del constraint graph abbiamo utilizzato il file constraintGraph.py, chiamando la funzione renderGraph, creata
+da noi appositamente per la visualizzazione del grafo. Questa funzione prende in input le variabili e i vincoli
+
+- per il punto 3 e il punto 4 abbiamo utilizzato il filr chiamato cspConsistency.py, utilizzando le funzioni già presenti
+ e interamente già implementate
+
+- i files sopra citati sono stati aggiustati e adattati in modo da poter svolgere l'assignment
