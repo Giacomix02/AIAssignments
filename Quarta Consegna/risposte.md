@@ -98,6 +98,8 @@ numeriamo le proposizioni della KB per farne riferimento durante la bottom-up pr
 {c,e,b,a} per 1.
 {c,e,b,a,j} per 9.
 ```
+KB $\models$ c, e, b, a, j
+
 **2) f non è una conseguenza logica di KB. Dare un modello nel quale f è falsa**
 ```
 Un modello in cui f è falsa è:
@@ -150,3 +152,120 @@ Riprovo derivando ```b``` in 3. invece che in 2:
 >yes $\leftarrow$ 
 
 procedura proof finita
+
+# Esercizio 3
+
+*goto_forest ← walking.*
+
+*get_gun ← hunting.*
+
+*goto_forest ← hunting.*
+
+*get_gun ← robbing.*
+
+*goto_bank ← robbing.*
+
+*goto_bank ← banking.*
+
+*fill_withdrawal_form ← banking.*
+
+*false ← banking ∧ robbing.*
+
+*false ← wearing_good_shoes ∧ goto_forest.*
+
+*assumable walking,hunting,robbing,banking*
+
+**1) Supponi che ```get_gun``` è osservato. Quali sono tutte le spiegazioni minimali per questa osservazione?**
+
+Dato che ```get_gun``` è osservato, vediamo in quale produzione è in testa:
+
+```
+get_gun ← hunting.
+
+get_gun ← robbing.
+```
+
+per mantenere get_gun a true ci sono 2 modi:
+
+o ```hunting``` o ```robbing``` devono essere assunti ad essere true.
+
+```get_gun``` non è specificato da nessuna altra parte, quindi ci sono 2 spiegazioni minimali:
+>{```hunting```} e {```robbing```}.
+
+**2) Supponi che ```get_gun``` $\wedge$ ```goto_bank``` è osservato. Quali sono tutte le spiegazioni minimali per questa osservazione?**
+
+
+Per mantenere ```get_gun``` a true si applica lo stesso procedimento sopra, con spiegazioni al momento {```hunting```} e {```robbing```}
+
+in quanto a goto_bank abbiamo le 2 produzioni:
+
+```
+goto_bank ← robbing.
+
+goto_bank ← banking.
+```
+
+visto che ```robbing``` è il corpo anche di una proposizione con in testa ```get_gun```
+una spiegazione minimale rimane al momento {```robbing```}
+
+nell'altro caso abbiamo ```banking```, quindi la spiegazione minimale {```hunting```} la uniamo con ```banking```
+= {```hunting```, ```banking```}
+
+{```robbing```, ```banking```} **non** può essere una spiegazione poiché la proposizione:
+
+```
+false ← banking ∧ robbing
+```
+
+impedisce che entrambi gli atomi siano assumibili.
+
+**In conclusione** le spiegazioni minimali per l'osservazione ```get_gun``` $\wedge$ ```goto_bank``` sono 2:
+>{```robbing```} and {```hunting```, ```banking```}
+
+
+
+**3) C'è qualcosa che può essere osservato per rimuovere una di queste come una spiegazione minimale?**
+**Cosa deve essere aggiunto per rendere possibile spiegarlo?**
+
+per rimuovere una spiegazione minimale si può rendere osservabile ```fill_withdrawal_form```, tale atomo è in testa a ```banking```, quindi in ogni spiegazione minima ```banking``` deve essere true, questo genera un conflitto con ```robbing``` per la proposizione:
+
+```
+false ← banking ∧ robbing
+```
+quindi {```robbing```} non può più essere una spiegazione minimale, rimarrebbe:
+>{```hunting```, ```banking```}
+
+aggiungendo 
+
+```
+fill_withdrawal_form ← robbing
+```
+renderebbe {```robbing```} spiegabile minimalmente, in quanto sarebbe nel corpo di tutti e tre degli atomi osservati (```get_gun```, ```goto_bank```, ```fill_withdrawal_form```)
+
+**4) Supponi che ```goto_bank``` è osservato. Quali sono tutte le spiegazioni minimali per questa osservazione?**
+
+Le spiegazioni minimali per ```goto_bank``` sono : 
+
+>{```robbing```}, {```banking```}
+
+
+**5) Supponi che ```goto_bank``` ∧ ```get_gun``` ∧ ```fill_withdrawal_form``` è osservato. Quali sono tutte le spiegazioni minimali per questa osservazione?**
+
+La spiegazione minimale per ```goto_bank``` ∧ ```get_gun``` ∧ ```fill_withdrawal_form``` è una:
+
+>{```hunting```, ```banking```}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
