@@ -1,6 +1,6 @@
 $\wedge$  $\vee$
-
-# Esercizio 1
+TODO: rimuovere ^
+# Problema 1
 
 a ← b ∧ c.
 
@@ -20,7 +20,7 @@ f ← g.
 
 g ← c. 
 
-**1) model of the knowledge base** 
+**1) modello della knowledge base** 
 ```
 un modello per la knowledge base data può essere:
 Definita funzione modello A(x) dove x è un atomo:
@@ -34,13 +34,13 @@ A(g) = true
 A(h) = true 
 ```
 
-**2) interpretation that is not a model of the knowledge base**
+**2) interpretazione che non sia un modello della knowledge base**
 ```
 un'interpretazione che non sia un modello della knowledge base può essere una intepretazione dove una o più proposizioni di suddetta KB hanno esito falso:
 definita funzione interpretazione B(x) dove x è un atomo:
-B(a) = true
-B(b) = false
-B(c) = false
+B(a) = false
+B(b) = true
+B(c) = true
 B(d) = true
 B(e) = true
 B(f) = true
@@ -69,7 +69,7 @@ Dalla lista di atomi trovata nel punto 3) possiamo dedurre che:
 >
 > KB $\not\models$ h
 
-# Esercizio 2
+# Problema 2
 numeriamo le proposizioni della KB per farne riferimento durante la bottom-up proof.
 1.  *a ← b ∧ c.*
 
@@ -98,7 +98,7 @@ numeriamo le proposizioni della KB per farne riferimento durante la bottom-up pr
 {c,e,b,a} per 1.
 {c,e,b,a,j} per 9.
 ```
-KB $\models$ c, e, b, a, j
+KB $\models$ ```c```, ```e```, ```b```, ```a```, ```j```
 
 **2) f non è una conseguenza logica di KB. Dare un modello nel quale f è falsa**
 ```
@@ -153,7 +153,7 @@ Riprovo derivando ```b``` in 3. invece che in 2:
 
 procedura proof finita
 
-# Esercizio 3
+# Problema 3
 
 *goto_forest ← walking.*
 
@@ -255,11 +255,37 @@ La spiegazione minimale per ```goto_bank``` ∧ ```get_gun``` ∧ ```fill_withdr
 
 >{```hunting```, ```banking```}
 
+# Problema 4
+
+*send_signal_lg_sc ← ok_sc_lg ∧ alive_sc.*
+
+*send_signal_hg_sc ← ok_sc_hg ∧ alive_sc.*
+
+*get_signal_s1 ← send_signal_hg_sc ∧ ok_s1_ant.*
+
+*get_signal_s2 ← send_signal_hg_sc ∧ ok_s2_ant.*
+
+*send_signal_s1 ← get_signal_s1 ∧ ok_s1_trans.*
+
+*send_signal_s2 ← get_signal_s2 ∧ ok_s2_trans.*
+
+*get_signal_gc ← send_signal_s1 ∧ ok_a1.*
+
+*get_signal_gc ← send_signal_s2 ∧ ok_a2.*
+
+*get_signal_gc ← send_signal_lg_sc ∧ ok_a3 ∧ no_dist.*
 
 
 
+observed: ```ok_a1```, ```ok_a2```, ```ok_a3```, ```ok_s1_trans```
 
+unsure about: ```alive_sc```, ```ok_sc_lg```, ```ok_sc_hg```, ```ok_s*_ant```, ```ok_s2_trans```, ```no_dist```
 
+**1) specifica un insieme di assumibili e un contraint di integrità che modellino la situazione**
+
+insieme di assumibili A = 
+
+*false ← get_signal_gc ∧ no_signal_gc.*
 
 
 
