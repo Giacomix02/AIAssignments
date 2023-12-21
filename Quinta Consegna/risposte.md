@@ -215,3 +215,4 @@ For every t:
 >
 >```Rob_loc```$_{t+1}$ = ```Rob_loc```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```move in lr```
 
+![](/Quinta%20Consegna/img/AI3.svg) 
