@@ -95,7 +95,7 @@ Subgoal "lr pulita":
 >< ```lr```, ¬```lr_dusty```, ```Gar_dusty```, ¬```Lr_dirty_floor```, ¬```Gar_dirty_floor```, ```Dustcloth_clean``` >
 
 # Esercizio 7
-**Draw the CSP for a planning horizon of two. Describe each constraint by 
+**Draw the CSP for a planning horizon of two. Describe each constraint by
 specifying which values are (in)consistent.**
 
 State variables:
@@ -106,38 +106,112 @@ State variables:
 5. ```Dustcloth_clean```
 6. ```Rob_loc```
 
-each variable has 0,1,2 variations (e.g. lr_dusty $_0$, lr_dusty $_1$, and so on)
+Each variable has 0,1,2 variations (e.g. lr_dusty$_0$, lr_dusty$_1$, and so on)
 
-Action variables:
-1. ```move```
-2. ```dust```
-3. ```sweep```
+Action variables: 
+**Action$_0$, Action$_1$**
 
-each variable has 0 and 1 variations 
 
-dust actions:
->***dust garage***:
+each variable has domain = {```move in garage```, ```move in lr```, ```dust garage```, ```dust lr```, ```sweep garage```, ```sweep lr```}
+
+### Actions: 
+- Dust actions:
+>***Dust garage***:
 >- preconditions: ```Dustcloth_clean``` ∧ ```Gar_dusty``` ∧ ```Rob_loc``` = ```Garage```
 >- effects: ¬```Dustcloth_clean```, ¬```Gar_dusty```
 
->***dust living room***:
+>***Dust lr***:
 >- preconditions: ```Dustcloth_clean``` ∧ ```Lr_dusty```∧ ```Rob_loc``` = ```lr```
 >- effects: ¬ ```Lr_dusty```
 
-sweep actions:
->**sweep garage**
->- preconditions: ```Gar_dirty_floor```∧ ```Rob_loc``` = ```garage```
->- effects: ¬ ```Gar_dirty_floor```
+- Sweep actions:
+>**Sweep garage**
+>- preconditions: ```Gar_dirty_floor``` ∧ ```Rob_loc``` = ```garage```
+>- effects: ¬ ```Gar_dirty_floor```, ```Gar_dusty```
 
->**sweep lr**
+>**Sweep lr**
 >- preconditions: ```lr_dirty_floor```∧ ```Rob_loc``` = ```lr```
->- effects: ¬ ```lr_dirty_floor```
+>- effects: ¬ ```lr_dirty_floor```, ```Lr_dusty```
 
-move actions:
->**move in garage**
+- Move actions:
+>**Move in garage**
 >- preconditions:```Rob_loc``` = ```lr```
 >- effects:```Rob_loc``` = ```garage```
 
->**move in lr**
+>**Move in lr**
 >- preconditions: ```Rob_loc``` = ```garage```
 >- effects: ```Rob_loc``` = ```lr```
+
+From now on, we'll use the notation of the type ```Variable```$_t$ to refer to the variable t, where t $\in$ {0, 1} for Action variables, and t $\in$ {0, 1, 2} for State variables.
+
+For every t:
+### **Precondition constraints:**
+
+- For **dust garage**:
+>```Dustcloth_clean```$_t$ $\leftarrow$ Action$_t$ = ```dust garage```
+>
+>```Gar_dusty```$_t$ $\leftarrow$ Action$_t$ = ```dust garage```
+>
+>```Rob_loc```$_t$ = ```Garage```  $\leftarrow$ Action$_t$ = ```dust garage```
+
+- For **dust lr**:
+>```Dustcloth_clean```$_t$ $\leftarrow$ Action$_t$ = ```dust lr```
+>
+>```Lr_dusty```$_t$ $\leftarrow$ Action$_t$ = ```dust lr```
+>
+>```Rob_loc```$_t$ = ```lr```  $\leftarrow$ Action$_t$ = ```dust lr```
+
+- For **sweep garage**:
+>```Gar_dirty_floor```$_t$ $\leftarrow$ Action$_t$ = ```sweep garage```
+>
+>```Rob_loc```$_t$ = ```garage```  $\leftarrow$ Action$_t$ = ```sweep garage```
+
+- For **sweep lr**:
+>```Lr_dirty_floor```$_t$ $\leftarrow$ Action$_t$ = ```sweep lr```
+>
+>```Rob_loc```$_t$ = ```lr```  $\leftarrow$ Action$_t$ = ```sweep lr```
+
+- For **move in garage**:
+>```Rob_loc```$_t$ = ```lr```  $\leftarrow$ Action$_t$ = ```move in garage```
+
+- For **move in lr**:
+>```Rob_loc```$_t$ = ```garage```  $\leftarrow$ Action$_t$ = ```move in lr```
+
+###  **Effect constraints:**
+- For **dust garage**:
+> ¬```Dustcloth_clean```$_{t+1}$ $\leftarrow$ Action$_t$ = ```dust garage```
+>
+> ¬```Gar_dusty```$_{t+1}$ $\leftarrow$ Action$_t$ = ```dust garage```
+
+- For **dust lr**:
+> ¬```Dustcloth_clean```$_{t+1}$ $\leftarrow$ Action$_t$ = ```dust lr```
+>  
+> ¬```Lr_dusty```$_{t+1}$ $\leftarrow$ Action$_t$ = ```dust lr```
+
+
+###  **Frame Constraints:**
+
+- For **Lr_dusty**:
+>```Lr_dusty```$_{t+1}$ = ```Lr_dusty```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```dust lr```
+>
+>```Lr_dusty```$_{t+1}$ = ```Lr_dusty```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```sweep lr```
+
+- For **Gar_dusty**:
+>```Gar_dusty```$_{t+1}$ = ```Gar_dusty```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```dust garage```
+>
+>```Gar_dusty```$_{t+1}$ = ```Gar_dusty```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```sweep garage```
+
+- For **Lr_dirty_floor**:
+>```Lr_dirty_floor```$_{t+1}$ = ```Lr_dirty_floor```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```sweep lr```
+
+- For **Gar_dirty_floor**:
+>```Gar_dirty_floor```$_{t+1}$ = ```Gar_dirty_floor```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```sweep garage```
+
+- For **Dustcloth_clean**:
+>```Dustcloth_clean```$_{t+1}$ = ```Dustcloth_clean```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```dust garage```
+
+- For **Rob_loc**:
+>```Rob_loc```$_{t+1}$ = ```Rob_loc```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```move in garage```
+>
+>```Rob_loc```$_{t+1}$ = ```Rob_loc```$_t$ $\leftarrow$ Action$_t$ $\ne$ ```move in lr```
+

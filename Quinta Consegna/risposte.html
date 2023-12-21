@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+<title>mdmath page</title>
+</head>
+<body class="markdown-body">
+<p dir="auto"><strong>Features:</strong></p>
+<ul dir="auto">
+<li dir="auto">
+<p dir="auto"><code>Lr_dusty</code> is true when the living room is dusty</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>Gar_dusty</code> is true when the garage is dusty</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>Lr_dirty_floor</code> is true when the living room floor is dirty</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>Gar_dirty_floor</code> is true when the garage floor is dirty</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>Dustcloth_clean</code> is true when the dust cloth is clean</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>Rob_loc</code> is the location of the robot, with values <strong>{Luogo}</strong></p>
+</li>
+</ul>
+<p dir="auto"><strong>Rooms:</strong></p>
+<ul dir="auto">
+<li dir="auto">
+<p dir="auto"><code>garage</code> se è polveroso è extra-polveroso</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>livingRoom</code> non è extra-polveroso</p>
+</li>
+</ul>
+<p dir="auto"><strong>Actions:</strong></p>
+<ul dir="auto">
+<li dir="auto">
+<p dir="auto"><code>move</code> &gt; si muove da una stanza all'altra</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>dust</code> &gt; spolvera la stanza in cui si trova il robot, solo se la stanza sia polverosa e il panno sia pulito</p>
+</li>
+<li dir="auto">
+<p dir="auto"><code>sweep</code> &gt; il robot spazza il pavimento della stanza in cui si trova</p>
+</li>
+</ul>
+<h1 dir="auto" id="esercizio-1">Esercizio 1</h1>
+<p dir="auto"><strong>Give the STRIPS representation for dust. [Hint: because STRIPS cannot represent
+conditional effects, you may need to use two separate actions that depend on the robot’s location.]</strong></p>
+<blockquote dir="auto">
+<p dir="auto"><em><strong>dust garage</strong></em>:</p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>Dustcloth_clean</code> ∧ <code>Gar_dusty</code> ∧ <code>Rob_loc</code> = <code>Garage</code></li>
+<li dir="auto">effects: ¬<code>Dustcloth_clean</code>, ¬<code>Gar_dusty</code></li>
+</ul>
+</blockquote>
+<blockquote dir="auto">
+<p dir="auto"><em><strong>dust living room</strong></em>:</p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>Dustcloth_clean</code> ∧ <code>Lr_dusty</code>∧ <code>Rob_loc</code> = <code>lr</code></li>
+<li dir="auto">effects: ¬ <code>Lr_dusty</code></li>
+</ul>
+</blockquote>
+<h1 dir="auto" id="esercizio-2">Esercizio 2</h1>
+<p dir="auto"><strong>Give the feature-based representation for lr_dusty</strong></p>
+<p dir="auto">Rules for “living room is dusty”</p>
+<blockquote dir="auto">
+<p dir="auto"><code>lr_dusty</code> ← ¬<code>lr_dusty</code> ∧ <code>Lr_dirty_floor</code> ∧ Act = <code>sweep</code> ∧ <code>Rob_loc</code> = <code>livingRoom</code></p>
+</blockquote>
+<blockquote dir="auto">
+<p dir="auto"><code>lr_dusty</code> ← <code>lr_dusty</code> ∧ <code>Rob_loc</code> ≠ <code>livingRoom</code> ∧ Act ≠ <code>dust</code></p>
+</blockquote>
+<h1 dir="auto" id="esercizio-3">Esercizio 3</h1>
+<p dir="auto"><strong>Suppose that the initial state is that the robot is in the garage, both rooms are dusty but have
+clean floors and the goal is to have both rooms not dusty. Draw the first two levels (with two
+actions, so the root has children and grandchildren) of a forward planner with multiple-path
+pruning, showing the actions (but you do not have to show the states). Show explicitly what
+nodes are pruned through multiple-path pruning.</strong></p>
+<p dir="auto">Initial state:</p>
+<p dir="auto">&lt; <code>garage</code>, <code>lr_dusty</code>, <code>Gar_dusty</code>, ¬<code>Lr_dirty_floor</code>, ¬<code>Gar_dirty_floor</code>, <code>Dustcloth_clean</code> &gt;</p>
+<p dir="auto"><img src="/Quinta Consegna/img/AI.svg" alt="" data-src="/Quinta%20Consegna/img/AI.svg"></p>
+<h1 dir="auto" id="esercizio-4">Esercizio 4</h1>
+<p dir="auto"><strong>Pick two of the states at the second level (after two actions) and show what is true in those states.</strong></p>
+<p dir="auto">let's pick the only 2 states that are possible after 2 actions: &quot;robot in lr&quot;, and &quot;lr pulita&quot;</p>
+<blockquote dir="auto">
+<p dir="auto"><strong>robot in lr:</strong></p>
+<p dir="auto">&lt; <code>lr</code>, <code>lr_dusty</code>, ¬<code>Gar_dusty</code>, ¬<code>Lr_dirty_floor</code>, ¬<code>Gar_dirty_floor</code>, ¬<code>Dustcloth_clean</code> &gt;</p>
+</blockquote>
+<blockquote dir="auto">
+<p dir="auto"><strong>lr pulita:</strong></p>
+<p dir="auto">&lt; <code>lr</code>, ¬<code>lr_dusty</code>, <code>Gar_dusty</code>, ¬<code>Lr_dirty_floor</code>, ¬<code>Gar_dirty_floor</code>, ¬<code>Dustcloth_clean</code> &gt;</p>
+</blockquote>
+<h1 dir="auto" id="esercizio-5">Esercizio 5</h1>
+<p dir="auto"><strong>Suppose that the initial state is that the robot is in the garage, both rooms are dusty but have clean floors and the goal is to have both rooms not dusty. Draw the first two levels (with two actions, so the root has children and grandchildren) of a regression planner showing the actions but you do not have to show what the nodes represent.</strong>
+<img src="/Quinta Consegna/img/AI2.svg"/>
+<img src="/Quinta Consegna/img/AI2.svg" alt="" data-src="/Quinta%20Consegna/img/AI2.svg"></p>
+<h1 dir="auto" id="esercizio-6">Esercizio 6</h1>
+<p dir="auto"><strong>Pick two of the nodes at the second level (after two actions) and show what the subgoal is at those nodes.</strong></p>
+<p dir="auto">Subgoal &quot;garage pulito - panno pulito&quot;:</p>
+<blockquote dir="auto">
+<p dir="auto">&lt; <code>garage</code>, <code>lr_dusty</code>, ¬<code>Gar_dusty</code>, ¬<code>Lr_dirty_floor</code>, ¬<code>Gar_dirty_floor</code>, <code>Dustcloth_clean</code> &gt;</p>
+</blockquote>
+<p dir="auto">Subgoal &quot;lr pulita&quot;:</p>
+<blockquote dir="auto">
+<p dir="auto">&lt; <code>lr</code>, ¬<code>lr_dusty</code>, <code>Gar_dusty</code>, ¬<code>Lr_dirty_floor</code>, ¬<code>Gar_dirty_floor</code>, <code>Dustcloth_clean</code> &gt;</p>
+</blockquote>
+<h1 dir="auto" id="esercizio-7">Esercizio 7</h1>
+<p dir="auto"><strong>Draw the CSP for a planning horizon of two. Describe each constraint by
+specifying which values are (in)consistent.</strong></p>
+<p dir="auto">State variables:</p>
+<ol dir="auto">
+<li dir="auto"><code>Lr_dusty</code></li>
+<li dir="auto"><code>Gar_dusty</code></li>
+<li dir="auto"><code>Lr_dirty_floor</code></li>
+<li dir="auto"><code>Gar_dirty_floor</code></li>
+<li dir="auto"><code>Dustcloth_clean</code></li>
+<li dir="auto"><code>Rob_loc</code></li>
+</ol>
+<p dir="auto">each variable has 0,1,2 variations (e.g. lr_dusty<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>, lr_dusty<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>, and so on)</p>
+<p dir="auto">Action variables:</p>
+<p dir="auto"><code>Action</code><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>, <code>Action</code><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq></p>
+<p dir="auto">each variable has domain = {<code>move</code>, <code>dust</code>, <code>sweep</code>}</p>
+<p dir="auto">dust actions:</p>
+<blockquote dir="auto">
+<p dir="auto"><em><strong>dust garage</strong></em>:</p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>Dustcloth_clean</code> ∧ <code>Gar_dusty</code> ∧ <code>Rob_loc</code> = <code>Garage</code></li>
+<li dir="auto">effects: ¬<code>Dustcloth_clean</code>, ¬<code>Gar_dusty</code></li>
+</ul>
+</blockquote>
+<blockquote dir="auto">
+<p dir="auto"><em><strong>dust living room</strong></em>:</p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>Dustcloth_clean</code> ∧ <code>Lr_dusty</code>∧ <code>Rob_loc</code> = <code>lr</code></li>
+<li dir="auto">effects: ¬ <code>Lr_dusty</code></li>
+</ul>
+</blockquote>
+<p dir="auto">sweep actions:</p>
+<blockquote dir="auto">
+<p dir="auto"><strong>sweep garage</strong></p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>Gar_dirty_floor</code> ∧ <code>Rob_loc</code> = <code>garage</code></li>
+<li dir="auto">effects: ¬ <code>Gar_dirty_floor</code>, <code>Gar_dusty</code></li>
+</ul>
+</blockquote>
+<blockquote dir="auto">
+<p dir="auto"><strong>sweep lr</strong></p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>lr_dirty_floor</code>∧ <code>Rob_loc</code> = <code>lr</code></li>
+<li dir="auto">effects: ¬ <code>lr_dirty_floor</code>, <code>Lr_dusty</code></li>
+</ul>
+</blockquote>
+<p dir="auto">move actions:</p>
+<blockquote dir="auto">
+<p dir="auto"><strong>move in garage</strong></p>
+<ul dir="auto">
+<li dir="auto">preconditions:<code>Rob_loc</code> = <code>lr</code></li>
+<li dir="auto">effects:<code>Rob_loc</code> = <code>garage</code></li>
+</ul>
+</blockquote>
+<blockquote dir="auto">
+<p dir="auto"><strong>move in lr</strong></p>
+<ul dir="auto">
+<li dir="auto">preconditions: <code>Rob_loc</code> = <code>garage</code></li>
+<li dir="auto">effects: <code>Rob_loc</code> = <code>lr</code></li>
+</ul>
+</blockquote>
+<p dir="auto">for the <strong>dust garage</strong> action we have the following precondition constraints:</p>
+<p dir="auto">Lr_dusty<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq> <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>←</mo></mrow><annotation encoding="application/x-tex">\leftarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">←</span></span></span></span></eq> Action<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>z</p>
+<p dir="auto">test<sup>taTAT</sup>  apicez
+test<sub>taTAT</sub>  pedice</p>
+
+</body>
+</html>
