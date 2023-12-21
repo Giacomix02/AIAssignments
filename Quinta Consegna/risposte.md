@@ -80,7 +80,9 @@ let's pick the only 2 states that are possible after 2 actions: "robot in lr", a
 
 # Esercizio 5
 **Suppose that the initial state is that the robot is in the garage, both rooms are dusty but have clean floors and the goal is to have both rooms not dusty. Draw the first two levels (with two actions, so the root has children and grandchildren) of a regression planner showing the actions but you do not have to show what the nodes represent.**
-![](/Quinta%20Consegna/img/AI2.svg)
+![](/Quinta%20Consegna/img/AI2.svg) 
+
+
 
 # Esercizio 6
 **Pick two of the nodes at the second level (after two actions) and show what the subgoal is at those nodes.**
@@ -94,4 +96,48 @@ Subgoal "lr pulita":
 
 # Esercizio 7
 **Draw the CSP for a planning horizon of two. Describe each constraint by 
-specifying which values are (in)consistent**
+specifying which values are (in)consistent.**
+
+State variables:
+1. ```Lr_dusty```
+2. ```Gar_dusty```
+3. ```Lr_dirty_floor```
+4. ```Gar_dirty_floor```
+5. ```Dustcloth_clean```
+6. ```Rob_loc```
+
+each variable has 0,1,2 variations (e.g. lr_dusty $_0$, lr_dusty $_1$, and so on)
+
+Action variables:
+1. ```move```
+2. ```dust```
+3. ```sweep```
+
+each variable has 0 and 1 variations 
+
+dust actions:
+>***dust garage***:
+>- preconditions: ```Dustcloth_clean``` ∧ ```Gar_dusty``` ∧ ```Rob_loc``` = ```Garage```
+>- effects: ¬```Dustcloth_clean```, ¬```Gar_dusty```
+
+>***dust living room***:
+>- preconditions: ```Dustcloth_clean``` ∧ ```Lr_dusty```∧ ```Rob_loc``` = ```lr```
+>- effects: ¬ ```Lr_dusty```
+
+sweep actions:
+>**sweep garage**
+>- preconditions: ```Gar_dirty_floor```∧ ```Rob_loc``` = ```garage```
+>- effects: ¬ ```Gar_dirty_floor```
+
+>**sweep lr**
+>- preconditions: ```lr_dirty_floor```∧ ```Rob_loc``` = ```lr```
+>- effects: ¬ ```lr_dirty_floor```
+
+move actions:
+>**move in garage**
+>- preconditions:```Rob_loc``` = ```lr```
+>- effects:```Rob_loc``` = ```garage```
+
+>**move in lr**
+>- preconditions: ```Rob_loc``` = ```garage```
+>- effects: ```Rob_loc``` = ```lr```
