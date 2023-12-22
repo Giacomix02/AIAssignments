@@ -1,0 +1,6 @@
+https://www.kaggle.com/datasets/thedevastator/yahoo-answers-topics-dataset
+https://www.kaggle.com/datasets/kailaspsudheer/tiny-object-detection
+https://www.kaggle.com/datasets/alexandersemiletov/toxic-russian-comments
+https://www.kaggle.com/datasets/kmader/food41 e poi ci metti https://www.kaggle.com/datasets/shuyangli94/food-com-recipes-and-user-interactions
+https://www.kaggle.com/datasets/leelasravanthi/maskguard
+https://www.kaggle.com/datasets/joebeachcapital/top-10000-spotify-songs-1960-now/data
